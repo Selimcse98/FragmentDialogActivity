@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class FragmentDialogOrActivity extends Activity {
+    private DialogFragment mDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,12 +21,11 @@ public class FragmentDialogOrActivity extends Activity {
 
         if (savedInstanceState == null) {
             // First-time init; create fragment to embed in activity.
-
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             DialogFragment newFragment = MyDialogFragment.newInstance();
             ft.add(R.id.embedded, newFragment);
+            ft.hide(newFragment);
             ft.commit();
-
         }
 
         // Watch for button clicks.
@@ -37,28 +37,9 @@ public class FragmentDialogOrActivity extends Activity {
         });
     }
 
-
     void showDialog() {
-        // Create the fragment and show it as a dialog.
-        DialogFragment newFragment = MyDialogFragment.newInstance();
-        newFragment.show(getFragmentManager(), "dialog");
+        MyDialogFragment myDialogFragment = MyDialogFragment.newInstance();
+        myDialogFragment.show(getFragmentManager(), "dialog");
+
     }
-
-
-
-    public static class MyDialogFragment extends DialogFragment {
-        static MyDialogFragment newInstance() {
-            return new MyDialogFragment();
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.hello_world, container, false);
-            View tv = v.findViewById(R.id.text1);
-            ((TextView)tv).setText("This is an instance of MyDialogFragment");
-            return v;
-        }
-    }
-
 }
