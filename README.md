@@ -1,0 +1,2 @@
+# FragmentDialogActivity
+Dialog Fragment Example
